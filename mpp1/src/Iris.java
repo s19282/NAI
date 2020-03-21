@@ -1,18 +1,20 @@
+import java.util.Arrays;
+
 public class Iris
 {
-    int[] attributes;
-    String decision;
+    double[] attributes;
+    String name;
 
-    public Iris(int[] attributes, String decision)
+    public Iris(double[] attributes, String decision)
     {
         this.attributes = attributes;
-        this.decision = decision;
+        this.name = decision;
     }
 
-    public Iris(int[] attributes)
+    public Iris(double[] attributes)
     {
         this.attributes = attributes;
-        decision="Unknown";
+        name ="Unknown";
     }
     public int calculateDistance(Iris iris,int howManyAttrs)
     {
@@ -24,4 +26,8 @@ public class Iris
         return value;
     }
 
+    @Override
+    public String toString() {
+        return Arrays.toString(attributes)+" "+name+"\n";
+    }
 }

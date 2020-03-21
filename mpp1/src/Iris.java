@@ -16,9 +16,9 @@ public class Iris
         this.attributes = attributes;
         name ="Unknown";
     }
-    public int calculateDistance(Iris iris,int howManyAttrs)
+    public double calculateDistance(Iris iris,int howManyAttrs)
     {
-        int value=0;
+        double value=0;
         for(int i=0; i<howManyAttrs; i++)
         {
             value+=Math.pow((iris.attributes[i]-this.attributes[i]),2);

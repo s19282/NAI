@@ -4,9 +4,13 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Main {
-
+    public static int k = 0;
     public static void main(String[] args)
     {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Podaj k: ");
+        k=scanner.nextInt();
+
         List<Iris> training = readData("iris_training.txt");
         List<Iris> test = readData("iris_test.txt");
         int correctAnswer=0;
@@ -17,14 +21,25 @@ public class Main {
                 correctAnswer++;
         }
         System.out.println("Prawidłowo zaklasyfikowanych: "+correctAnswer+" co daje: "+(correctAnswer*100/test.size())+"%");
+
+        while (true)
+        {
+            scanner=new Scanner(System.in);
+            System.out.print("Podaj wektor: ");
+            String[] v = scanner.nextLine().split(" ");
+            double[] tmp = new double[v.length];
+            for(int i=0; i<v.length; i++)
+                tmp[i]=Double.parseDouble(v[i]);
+            System.out.println(predictName(training,new Iris(tmp),4));
+        }
     }
     public static String predictName(List<Iris> training,Iris iris,int attrs)
     {
         TreeMap<Double,Iris> tm = new TreeMap<>();
         for(Iris iris1: training)
             tm.put(iris1.calculateDistance(iris,attrs-1),iris1);
-        String[] names = new String[5];
-        for(int i=0; i<5; i++)
+        String[] names = new String[k];
+        for(int i=0; i<k; i++)
         {
             Map.Entry<Double,Iris> entry = tm.firstEntry();
             names[i]=entry.getValue().name;
@@ -44,7 +59,7 @@ public class Main {
             tempCount = 0;
             for (int j = 1; j < a.length; j++)
             {
-                if (temp == a[j])
+                if (temp.equals(a[j]))
                     tempCount++;
             }
             if (tempCount > count)

@@ -35,17 +35,41 @@ public class Main {
     }
     public static String predictName(List<Iris> training,Iris iris,int attrs)
     {
-        TreeMap<Double,Iris> tm = new TreeMap<>();
         for(Iris iris1: training)
-            tm.put(iris1.calculateDistance(iris,attrs-1),iris1);
+            iris1.calculateDistance(iris,attrs-1);
+        training.sort(Comparator.comparingDouble(Iris::getDistance));
         String[] names = new String[k];
         for(int i=0; i<k; i++)
-        {
-            Map.Entry<Double,Iris> entry = tm.firstEntry();
-            names[i]=entry.getValue().name;
-            tm.remove(entry.getKey());
+            names[i]=training.get(i).name;
+        return getPopularElementv2(names);
+    }
+    public static String getPopularElementv2(String[] names)
+    {
+        int IrisSetosa=0;
+        int IrisVersicolor=0;
+        int IrisVirginica=0;
+        for (String name : names) {
+            if (name.equals("Iris-setosa"))
+                IrisSetosa++;
+            if (name.equals("Iris-versicolor"))
+                IrisVersicolor++;
+            if (name.equals("Iris-virginica"))
+                IrisVirginica++;
         }
-        return getPopularElement(names);
+        if(IrisSetosa>IrisVersicolor)
+        {
+            if(IrisSetosa>IrisVirginica)
+                return "Iris-setosa";
+            else
+                return "Iris-virginica";
+        }
+        else
+        {
+            if(IrisVersicolor>IrisVirginica)
+                return "Iris-versicolor";
+            else
+                return "Iris-virginica";
+        }
     }
 
     public static String getPopularElement(String[] a)

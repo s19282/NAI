@@ -4,6 +4,15 @@ public class Iris
 {
     double[] attributes;
     String name;
+    Double distance;
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
 
     public Iris(double[] attributes, String decision)
     {
@@ -16,14 +25,14 @@ public class Iris
         this.attributes = attributes;
         name ="Unknown";
     }
-    public double calculateDistance(Iris iris,int howManyAttrs)
+    public void calculateDistance(Iris iris,int howManyAttrs)
     {
         double value=0;
         for(int i=0; i<howManyAttrs; i++)
         {
             value+=Math.pow((iris.attributes[i]-this.attributes[i]),2);
         }
-        return value;
+        distance=value;
     }
 
     @Override

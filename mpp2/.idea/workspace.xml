@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2e069737-36de-42d3-9c80-0c64c3c57eff" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +33,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../mpp1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
@@ -64,7 +63,8 @@
       <option name="presentableId" value="Default" />
       <updated>1585676272178</updated>
       <workItem from="1585676276827" duration="14653000" />
-      <workItem from="1585762198337" duration="5967000" />
+      <workItem from="1585762198337" duration="6194000" />
+      <workItem from="1585770514433" duration="334000" />
     </task>
     <task id="LOCAL-00001" summary="nic nie działa">
       <created>1585747646209</created>
@@ -87,7 +87,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585767390431</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Ostatnie poprawki">
+      <created>1585770200573</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1585770200573</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -98,52 +105,53 @@
     <MESSAGE value="nic nie działa" />
     <MESSAGE value="dalej nie działa" />
     <MESSAGE value="Pierwsza wersja zwracająca jakieś wyniki" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pierwsza wersja zwracająca jakieś wyniki" />
+    <MESSAGE value="Ostatnie poprawki" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ostatnie poprawki" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="290" y="24" key="CommitChangelistDialog2" timestamp="1585767389088">
+    <state x="290" y="24" key="CommitChangelistDialog2" timestamp="1585770199341">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state x="290" y="24" key="CommitChangelistDialog2/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585767389088" />
-    <state x="500" y="185" key="FileChooserDialogImpl" timestamp="1585736540984">
+    <state x="290" y="24" key="CommitChangelistDialog2/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585770199341" />
+    <state x="500" y="185" key="FileChooserDialogImpl" timestamp="1585770846162">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state x="500" y="185" key="FileChooserDialogImpl/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585736540984" />
-    <state width="1397" height="222" key="GridCell.Tab.0.bottom" timestamp="1585767636508">
+    <state x="500" y="185" key="FileChooserDialogImpl/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585770846162" />
+    <state width="1397" height="167" key="GridCell.Tab.0.bottom" timestamp="1585770414541">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1397" height="222" key="GridCell.Tab.0.bottom/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585767636508" />
-    <state width="1397" height="222" key="GridCell.Tab.0.center" timestamp="1585767636507">
+    <state width="1397" height="167" key="GridCell.Tab.0.bottom/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585770414541" />
+    <state width="1397" height="167" key="GridCell.Tab.0.center" timestamp="1585770414541">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1397" height="222" key="GridCell.Tab.0.center/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585767636507" />
-    <state width="1397" height="222" key="GridCell.Tab.0.left" timestamp="1585767636507">
+    <state width="1397" height="167" key="GridCell.Tab.0.center/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585770414541" />
+    <state width="1397" height="167" key="GridCell.Tab.0.left" timestamp="1585770414541">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1397" height="222" key="GridCell.Tab.0.left/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585767636507" />
-    <state width="1397" height="222" key="GridCell.Tab.0.right" timestamp="1585767636507">
+    <state width="1397" height="167" key="GridCell.Tab.0.left/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585770414541" />
+    <state width="1397" height="167" key="GridCell.Tab.0.right" timestamp="1585770414541">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1397" height="222" key="GridCell.Tab.0.right/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585767636507" />
-    <state width="1397" height="190" key="GridCell.Tab.1.bottom" timestamp="1585766807028">
+    <state width="1397" height="167" key="GridCell.Tab.0.right/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585770414541" />
+    <state width="1397" height="190" key="GridCell.Tab.1.bottom" timestamp="1585770413135">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1397" height="190" key="GridCell.Tab.1.bottom/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585766807028" />
-    <state width="1397" height="190" key="GridCell.Tab.1.center" timestamp="1585766807028">
+    <state width="1397" height="190" key="GridCell.Tab.1.bottom/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585770413135" />
+    <state width="1397" height="190" key="GridCell.Tab.1.center" timestamp="1585770413134">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1397" height="190" key="GridCell.Tab.1.center/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585766807028" />
-    <state width="1397" height="190" key="GridCell.Tab.1.left" timestamp="1585766807027">
+    <state width="1397" height="190" key="GridCell.Tab.1.center/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585770413134" />
+    <state width="1397" height="190" key="GridCell.Tab.1.left" timestamp="1585770413134">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1397" height="190" key="GridCell.Tab.1.left/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585766807027" />
-    <state width="1397" height="190" key="GridCell.Tab.1.right" timestamp="1585766807028">
+    <state width="1397" height="190" key="GridCell.Tab.1.left/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585770413134" />
+    <state width="1397" height="190" key="GridCell.Tab.1.right" timestamp="1585770413134">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state width="1397" height="190" key="GridCell.Tab.1.right/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585766807028" />
-    <state x="312" y="163" key="Vcs.Push.Dialog.v2" timestamp="1585770181896">
+    <state width="1397" height="190" key="GridCell.Tab.1.right/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585770413134" />
+    <state x="312" y="163" key="Vcs.Push.Dialog.v2" timestamp="1585770532152">
       <screen x="0" y="0" width="1440" height="860" />
     </state>
-    <state x="312" y="163" key="Vcs.Push.Dialog.v2/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585770181896" />
+    <state x="312" y="163" key="Vcs.Push.Dialog.v2/0.0.1440.860/1440.0.1440.860@0.0.1440.860" timestamp="1585770532152" />
   </component>
 </project>

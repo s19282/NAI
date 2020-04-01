@@ -32,7 +32,7 @@ public class Main
             if(iris.name.equals("Iris-setosa")&&result.equals("Iris-setosa")||result.equals("Inny")&&(!iris.name.equals("Iris-setosa")))
                 counter++;
         }
-        System.out.println("Poprawność: "+counter*100/test.size()+"%");
+        System.out.println("Prawidłowo zaklasyfikowanych: "+test.size()+" Dokadność: "+counter*100/test.size()+"%");
 
         while (true)
         {

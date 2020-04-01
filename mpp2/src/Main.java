@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Main
 {
-    static final double alpha = 0.5;
+    static final double alpha = 0.25;
     //static final double alpha = Math.random();
     static double[] weights;
     static double threshold = 0;
@@ -15,21 +15,24 @@ public class Main
         List<Iris> training = readData("iris_training.txt");
         List<Iris> test = readData("iris_test.txt");
         generateValues(weights);
-        boolean wagesChanged= false;
-        while (!wagesChanged)
+        boolean stop= true;
+        do
         {
             System.out.println("training");
             for(Iris iris : training)
             {
-                wagesChanged=learn(iris);
+                stop=learn(iris);
             }
         }
+        while (stop);
+
+        System.out.println("Done");
 
     }
     public static boolean learn(Iris iris)
     {
         int s;
-        boolean changed=false;
+        boolean stop=true;
         while (true)
         {
             s=0;
@@ -37,7 +40,7 @@ public class Main
                 s+=weights[i]*iris.attributes[i];
             if((iris.value==1&&s<threshold)||(iris.value==0&&s>=threshold))
             {
-                changed=true;
+                stop=false;
                 for (int i=0; i<weights.length; i++)
                     weights[i]+=alpha*(iris.value-(s>=threshold?1:0))*(iris.attributes[i]);
 
@@ -45,7 +48,7 @@ public class Main
             else
                 break;
         }
-        return changed;
+        return stop;
     }
 
 

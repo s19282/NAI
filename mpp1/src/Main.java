@@ -56,16 +56,16 @@ public class Main {
             if (name.equals("Iris-virginica"))
                 IrisVirginica++;
         }
-        if(IrisSetosa>IrisVersicolor)
+        if(IrisSetosa>=IrisVersicolor)
         {
-            if(IrisSetosa>IrisVirginica)
+            if(IrisSetosa>=IrisVirginica)
                 return "Iris-setosa";
             else
                 return "Iris-virginica";
         }
         else
         {
-            if(IrisVersicolor>IrisVirginica)
+            if(IrisVersicolor>=IrisVirginica)
                 return "Iris-versicolor";
             else
                 return "Iris-virginica";

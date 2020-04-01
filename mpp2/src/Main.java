@@ -8,31 +8,61 @@ public class Main
     static final double alpha = 0.25;
     //static final double alpha = Math.random();
     static double[] weights;
-    static double threshold = 0;
+    static double threshold = 0.7;
 
     public static void main(String[] args)
     {
         List<Iris> training = readData("iris_training.txt");
         List<Iris> test = readData("iris_test.txt");
         generateValues(weights);
-        boolean stop= true;
+        boolean stop = false;
         do
         {
-            System.out.println("training");
+            stop = false;
+            //System.out.println("weights: "+Arrays.toString(weights));
             for(Iris iris : training)
             {
-                stop=learn(iris);
+                stop=learn(iris,stop);
             }
         }
         while (stop);
 
-        System.out.println("Done");
+        int counter = 0;
+        for(Iris iris : test)
+        {
+            String result = check(iris);
+            if(iris.name.equals("Iris-setosa")&&result.equals("Iris-setosa")||result.equals("Inny")&&(!iris.name.equals("Iris-setosa")))
+                counter++;
+        }
+        System.out.println("Poprawność: "+counter*100/test.size()+"%");
+
+//        while (true)
+//        {
+//            Scanner scanner=new Scanner(System.in);
+//            System.out.print("Podaj wektor: ");
+//            String[] v = scanner.nextLine().split(" ");
+//            double[] tmp = new double[v.length];
+//            for(int i=0; i<v.length; i++)
+//                tmp[i]=Double.parseDouble(v[i]);
+//            Iris myIrys = new Iris(tmp);
+//            int s=0;
+//            for (int i=0; i<weights.length; i++)
+//                s+=weights[i]*myIrys.attributes[i];
+//            System.out.println(s>=threshold?"Setosa":"inny");
+//        }
 
     }
-    public static boolean learn(Iris iris)
+    public static String check(Iris iris)
     {
-        int s;
-        boolean stop=true;
+        double s =0;
+        for (int i=0; i<weights.length; i++)
+            s+=weights[i]*iris.attributes[i];
+        return s>=threshold?"Iris-setosa":"Inny";
+    }
+    public static boolean learn(Iris iris, boolean stop)
+    {
+        int counter = 0;
+        double s;
         while (true)
         {
             s=0;
@@ -40,10 +70,9 @@ public class Main
                 s+=weights[i]*iris.attributes[i];
             if((iris.value==1&&s<threshold)||(iris.value==0&&s>=threshold))
             {
-                stop=false;
+                stop=true;
                 for (int i=0; i<weights.length; i++)
-                    weights[i]+=alpha*(iris.value-(s>=threshold?1:0))*(iris.attributes[i]);
-
+                    weights[i]=weights[i] + alpha*(iris.value-(s>=threshold?1:0))*(iris.attributes[i]);
             }
             else
                 break;

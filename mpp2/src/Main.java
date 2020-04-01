@@ -6,7 +6,6 @@ import java.util.*;
 public class Main
 {
     static final double alpha = 0.25;
-    //static final double alpha = Math.random();
     static double[] weights;
     static double threshold = 0.7;
 
@@ -15,11 +14,10 @@ public class Main
         List<Iris> training = readData("iris_training.txt");
         List<Iris> test = readData("iris_test.txt");
         generateValues(weights);
-        boolean stop = false;
+        boolean stop;
         do
         {
             stop = false;
-            //System.out.println("weights: "+Arrays.toString(weights));
             for(Iris iris : training)
             {
                 stop=learn(iris,stop);
@@ -36,20 +34,20 @@ public class Main
         }
         System.out.println("Poprawność: "+counter*100/test.size()+"%");
 
-//        while (true)
-//        {
-//            Scanner scanner=new Scanner(System.in);
-//            System.out.print("Podaj wektor: ");
-//            String[] v = scanner.nextLine().split(" ");
-//            double[] tmp = new double[v.length];
-//            for(int i=0; i<v.length; i++)
-//                tmp[i]=Double.parseDouble(v[i]);
-//            Iris myIrys = new Iris(tmp);
-//            int s=0;
-//            for (int i=0; i<weights.length; i++)
-//                s+=weights[i]*myIrys.attributes[i];
-//            System.out.println(s>=threshold?"Setosa":"inny");
-//        }
+        while (true)
+        {
+            Scanner scanner=new Scanner(System.in);
+            System.out.print("Podaj wektor: ");
+            String[] v = scanner.nextLine().split(" ");
+            double[] tmp = new double[v.length];
+            for(int i=0; i<v.length; i++)
+                tmp[i]=Double.parseDouble(v[i]);
+            Iris myIrys = new Iris(tmp);
+            int s=0;
+            for (int i=0; i<weights.length; i++)
+                s+=weights[i]*myIrys.attributes[i];
+            System.out.println(s>=threshold?"Setosa":"inny");
+        }
 
     }
     public static String check(Iris iris)
@@ -61,7 +59,6 @@ public class Main
     }
     public static boolean learn(Iris iris, boolean stop)
     {
-        int counter = 0;
         double s;
         while (true)
         {
@@ -87,7 +84,7 @@ public class Main
         try
         {
             List<String> dataFromFile = Files.readAllLines(Paths.get(path));
-            weights = new double[dataFromFile.get(0).split("\\s+").length-2];//upewnic sie ze dziala
+            weights = new double[dataFromFile.get(0).split("\\s+").length-2];
             for(String line : dataFromFile)
             {
                 line=line.replaceAll(",",".");

@@ -13,10 +13,11 @@ import static java.nio.file.FileVisitResult.CONTINUE;
 public class Main {
     public static void main(String[] args) throws IOException {
         List<Language> languages = new ArrayList<>();
-        String path = "data";
+        String path = "training";
         processDir(path, languages);
         simpleLearning(languages);
-        checkAll(languages);
+        //checkAll(languages);
+        checkFromTxt("test",languages);
     }
     static void checkAll(List<Language> languages)
     {
@@ -33,6 +34,26 @@ public class Main {
                 }
             }
         }
+    }
+
+    static void checkFromTxt(String path,List<Language> languages) throws IOException
+    {
+        Files.walkFileTree(Paths.get(path), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
+                new SimpleFileVisitor<>()
+                {
+                    @Override
+                    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException
+                    {
+                        System.out.println("------------");
+                        System.out.println(file.toString());
+                        System.out.println("------------");
+                        for(Language language : languages)
+                        {
+                            System.out.println(language.getName()+" "+language.check(Files.lines(file, StandardCharsets.UTF_8).map(String::toUpperCase).collect(Collectors.joining(" "))));
+                        }
+                        return CONTINUE;
+                    }
+                });
     }
     static void simpleLearning(List<Language> languages)
     {

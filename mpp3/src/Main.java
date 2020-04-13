@@ -15,36 +15,30 @@ public class Main {
         List<Language> languages = new ArrayList<>();
         String path = "data";
         processDir(path, languages);
-        //learn(languages);
         simpleLearning(languages);
+        checkAll(languages);
+    }
+    static void checkAll(List<Language> languages)
+    {
+        for(Language lang : languages)
+        {
+            System.out.println("---------");
+            System.out.println(lang.getName());
+            System.out.println("---------");
+            for(Language l : languages)
+            {
+                for(int[] v : l.getTrainingVectors())
+                {
+                    System.out.println(l.getName()+" "+lang.check(v));
+                }
+            }
+        }
     }
     static void simpleLearning(List<Language> languages)
     {
-        languages.get(0).simple(languages.get(0));
-        System.out.println("done");
+        for(Language lang : languages)
+            lang.simple(languages);
     }
-
-//    static void learn(List<Language> languages)
-//    {
-//        int langCounter=0,doCouner=0,languageCounter=0;
-//        for (Language lang : languages)
-//        {
-//            System.out.println("lang "+langCounter++);
-//            boolean stop;
-//            do
-//            {
-//                System.out.println("do "+doCouner++);
-//                stop = false;
-//                for (Language language : languages)
-//                {
-//                    System.out.println("language "+languageCounter++);
-//                    stop = lang.learn(language, stop);
-//                }
-//            }
-//            while (stop);
-//        }
-//        System.out.println("Done");
-//    }
 
     static void processDir(String path, List<Language> languages) throws IOException
     {

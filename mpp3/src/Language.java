@@ -11,7 +11,6 @@ public class Language
     double[] weights;
     static final double alpha = 0.5;
     static double threshold = 1;
-    int multiply=0;
 
     public void addTrainingFile(String trainingFile)
     {
@@ -26,6 +25,15 @@ public class Language
         trainingVectors.add(tmp);
 
     }
+    public int[] textToArray(String text)
+    {
+        int[] tmp = new int[26];
+        for(int i=0; i<text.length(); i++)
+            if (text.charAt(i)>=65&&text.charAt(i)<=90)
+                tmp[text.charAt(i)-65]++;
+        return tmp;
+    }
+
     public int getValue(Language language)
     {
         if(this.getName().equals(language.getName()))
@@ -34,45 +42,79 @@ public class Language
             return 0;
     }
 
+    public List<int[]> getTrainingVectors() {
+        return trainingVectors;
+    }
+
+    public void setTrainingVectors(List<int[]> trainingVectors) {
+        this.trainingVectors = trainingVectors;
+    }
+
     public Language(String name)
     {
         this.name = name;
         weights=new Random().doubles(-5,5).limit(26).toArray();
     }
 
-    public void   simple(Language l)
+    public void simple(List<Language> l)
     {
         boolean stop;
         do
         {
             stop = false;
-            for( int[] vector : trainingVectors)
+            for(Language lang: l)
             {
-                double s;
-                while (true)
+                for( int[] vector : lang.getTrainingVectors())
                 {
-                    s=0;
-                    for (int i=0; i<vector.length; i++)
-                        s+=weights[i]*vector[i];
-
-                    if((this.getValue(l)==1&&s<threshold)||(this.getValue(l)==0&&s>=threshold))
+                    double s;
+                    while (true)
                     {
-                        stop=true;
-                        //threshold = threshold+alpha*(this.getValue(l)-(s>=threshold?1:0))*-1;
-                        //threshold = threshold+alpha*(this.getValue(l)-(s>=threshold?1:0));
-                        for (int i=0; i<weights.length; i++)
-                            weights[i]=weights[i] + alpha*(this.getValue(l)-(s>=threshold?1:0))*(vector[i]);
-                    }
-                    else
-                    {
-                        break;
-                    }
+                        s=0;
+                        for (int i=0; i<vector.length; i++)
+                            s+=weights[i]*vector[i];
 
+                        if((this.getValue(lang)==1&&s<threshold)||(this.getValue(lang)==0&&s>=threshold))
+                        {
+                            stop=true;
+                            threshold = threshold+alpha*(this.getValue(lang)-(s>=threshold?1:0))*-1;
+                            //threshold = threshold+alpha*(this.getValue(l)-(s>=threshold?1:0));
+                            for (int i=0; i<weights.length; i++)
+                                weights[i]=weights[i] + alpha*(this.getValue(lang)-(s>=threshold?1:0))*(vector[i]);
+                        }
+                        else
+                        {
+                            break;
+                        }
+
+                    }
                 }
             }
+
         }
         while (stop);
-        multiply++;
+    }
+
+    public String check(String text)
+    {
+        int[] v = textToArray(text);
+        double s=0;
+        for (int i=0; i<v.length; i++)
+            s+=weights[i]*v[i];
+
+        if(s<threshold)
+            return "inny";
+        else
+            return this.getName();
+    }
+    public String check(int[] vector)
+    {
+        double s=0;
+        for (int i=0; i<vector.length; i++)
+            s+=weights[i]*vector[i];
+        if(s<threshold)
+            return "inny";
+        else
+            return this.getName();
     }
 
 //    public boolean learn(Language l,boolean stop)

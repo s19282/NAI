@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2e069737-36de-42d3-9c80-0c64c3c57eff" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mpp3/out/production/mpp3/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../mpp3/out/production/mpp3/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mpp3/out/production/mpp3/Main.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../mpp3/src/Language.java" beforeDir="false" afterPath="$PROJECT_DIR$/../mpp3/src/Language.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../mpp3/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../mpp3/src/Main.java" afterDir="false" />
     </list>
@@ -75,7 +75,7 @@
       <workItem from="1586418874003" duration="1896000" />
       <workItem from="1586425311811" duration="352000" />
       <workItem from="1586453868160" duration="162000" />
-      <workItem from="1586798490655" duration="2081000" />
+      <workItem from="1586798490655" duration="2692000" />
     </task>
     <task id="LOCAL-00001" summary="nic nie działa">
       <created>1585747646209</created>

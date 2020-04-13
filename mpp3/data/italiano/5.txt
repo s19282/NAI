@@ -1,0 +1,19 @@
+
+Questa voce o sezione sullargomento matematici russi non cita le fonti necessarie o quelle presenti sono insufficienti
+Puoi migliorare questa voce aggiungendo citazioni da fonti attendibili secondo le linee guida sulluso delle fonti
+Egor Ivanovič Zolotarëv
+Egor Ivanovič Zolotarëv in russo Егор Иванович Золотарёв San Pietroburgo aprile luglio è stato un matematico russo ritenuto tra i maggiori matematici russi del XIX secolo
+Figlio dellorologiaio Ivan Zolotarëv il giovane Egor frequentò il ginnasio di San Pietroburgo che completò nel distinguendosi negli studi tanto da meritare una medaglia dargento
+In seguito si iscrisse alla facoltà di fisica e matematica delluniversità di San Pietroburgo dove seguì le lezioni di Čebyšëv e Korkin conseguì la laurea di primo grado nel 
+Zolotarëv proseguì i suoi studi presso la facoltà sulle equazioni indeterminate di terzo grado come riconoscimento per i risultati conseguiti ottenne la laurea nel Nel ottenne il dottorato con una tesi sugli interi algebrici
+Due anni dopo fu nominato professore di matematica presso la stessa facoltà che aveva frequentato e divenne assistente in matematica applicata allaccademia delle scienze di San Pietroburgo
+In seguito egli seguì le lezioni di Kummer e Weierstraß a Berlino Si recò anche a Parigi dove ebbe diverse discussioni in campo matematico con Hermite
+La sua carriera fu molto proficua nonostante la brevità durò soltanto undici anni in quanto scomparve prematuramente solamente due anni dopo la sua nomina a professore nel morì per uninfezione al sangue contratta in breve tempo dopo essere caduto sotto un treno
+Le opere
+Egli produsse in soli undici anni di carriera risultati fondamentali in vari campi teoria dellapprossimazione forme quadratiche numeri algebrici ed integrali ellittici Le sue pubblicazioni ammontano a ventotto fra articoli e libri
+Egli studiò gli anelli di interi in campi di numeri algebrici sviluppando la teoria della divisibilità per questi anelli sulla base di alcune idee di Kummel Indagò anche sugli anelli locali e semilocali e dimostrò alcuni risultati sui domini ideali principali Introdusse inoltre alcune idee su quelle che ora sono chiamate valutazioni
+Variabile complessa
+Nel campo delle funzioni ellittiche Zolotarëv enfatizzò la relazione fra esse e le funzioni a variabile complessa in quanto egli applicò la sua teoria sugli interi complessi allintegrazione dei differenziali ellittici Abel era riuscito a dimostrare che alcuni differenziali ellittici potevano essere integrati in logaritmi ma lutilità del metodo era piccola invece la soluzione di Zolotarëv era applicabile in un maggior numero di casi
+Gli studi sulle forme quadratiche furono condotti con Korkin sulla base del problema posto da Hermite di trovare i minimi delle forme quadratiche in variabili a coefficienti reali Essi furono in grado di trovare la soluzione nel caso di quattro e cinque variabili
+Teoria della approssimazione
+I contributi di Zolotarëv al teoria dellapprossimazione nacquero da quattro problemi che egli pose e che in seguito fu in grado di risolvere Il primo ed il secondo problema riguardano il tentativo di minimizzare la funzione max px x con polinomi px aventi coefficienti soddisfacenti condizioni date Il terzo ed il quarto problema hanno a che fare con lapprossimazione ottimale di una funzione razionale su un dato intervallo e soggetta a restrizioni altrove Egli trovò il polinomio di grado n con due dei suoi coefficienti fissi che fosse il più vicino possibile a zero 

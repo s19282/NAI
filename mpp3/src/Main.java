@@ -1,23 +1,30 @@
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 
-public class Main {
-    public static void main(String[] args) throws IOException {
-        List<Language> languages = new ArrayList<>();
-        String path = "training";
-        processDir(path, languages);
-        simpleLearning(languages);
-        //checkAll(languages);
-        checkFromTxt("test",languages);
+public class Main extends Application
+{
+    public static void main(String[] args) {
+        launch(args);
     }
     static void checkAll(List<Language> languages)
     {
@@ -36,9 +43,9 @@ public class Main {
         }
     }
 
-    static void checkFromTxt(String path,List<Language> languages) throws IOException
+    static void checkFromTxt(List<Language> languages) throws IOException
     {
-        Files.walkFileTree(Paths.get(path), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
+        Files.walkFileTree(Paths.get("test"), EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
                 new SimpleFileVisitor<>()
                 {
                     @Override
@@ -89,5 +96,41 @@ public class Main {
                         return CONTINUE;
                     }
                 });
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception
+    {
+        List<Language> languages = new ArrayList<>();
+        String path = "training";
+        processDir(path, languages);
+        simpleLearning(languages);
+        checkAll(languages);
+        checkFromTxt(languages);
+
+        primaryStage.setTitle("Predict Language");
+        HBox hBox = new HBox();
+        VBox vBox = new VBox();
+        TextArea ta = new TextArea();
+        ta.setWrapText(true);
+        StringBuilder labelText= new StringBuilder("Avaiable languages: \n");
+        for(Language l : languages)
+            labelText.append(l.name).append("\n");
+        Label label = new Label(labelText.toString());
+        Label result = new Label();
+        Button btn = new Button();
+        btn.setText("Check text");
+        vBox.getChildren().addAll(btn,label,result);
+        hBox.getChildren().addAll(ta,vBox);
+        btn.setOnAction(event -> {
+            StringBuilder res = new StringBuilder();
+            for(Language l : languages)
+                res.append(l.name).append(":").append(l.check(ta.getText())).append("\n");
+            result.setText(res.toString());
+        });
+
+        primaryStage.setScene(new Scene(hBox, 640, 480));
+        primaryStage.setResizable(false);
+        primaryStage.show();
     }
 }

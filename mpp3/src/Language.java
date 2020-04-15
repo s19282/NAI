@@ -11,6 +11,10 @@ public class Language
     static final double alpha = 0.5;
     static double threshold = 1;
 
+    public double[] getWeights() {
+        return weights;
+    }
+
     public void addTrainingFile(String trainingFile)
     {
         trainingFiles.add(trainingFile);

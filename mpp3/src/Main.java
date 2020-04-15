@@ -13,10 +13,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
@@ -125,6 +122,8 @@ public class Main extends Application
         simpleLearning(languages);
         checkAll(languages);
         checkFromTxt(languages);
+        for(Language l : languages)
+            System.out.println(l.getName()+" "+Arrays.toString(l.getWeights()));
 
         primaryStage.setTitle("Predict Language");
         HBox hBox = new HBox();

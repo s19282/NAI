@@ -26,6 +26,7 @@ public class Language
     }
     public int[] textToArray(String text)
     {
+        text=text.toUpperCase();
         int[] tmp = new int[26];
         for(int i=0; i<text.length(); i++)
             if (text.charAt(i)>=65&&text.charAt(i)<=90)

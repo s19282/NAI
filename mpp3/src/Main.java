@@ -1,13 +1,9 @@
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -52,9 +48,17 @@ public class Main extends Application
     {
         List<String> result = new ArrayList<>();
         for(Language l : languages)
-            if(l.getName().equals(l.check(text)))
+        {
+            if (l.getName().equals(l.check(text)))
                 result.add(l.getName());
-        return "("+result.size()+"):\n"+result.get(new Random().nextInt(result.size()));
+        }
+        int random;
+        try{random=new Random().nextInt(result.size());}
+        catch (IllegalArgumentException e) {random=-1;}
+        if(random==-1)
+            return "\nNotFound";
+        else
+            return "("+result.size()+"):\n"+result.get(random);
     }
 
     static void checkFromTxt(List<Language> languages) throws IOException
@@ -140,9 +144,7 @@ public class Main extends Application
 
         Button btn = new Button();
         btn.setText("Check text");
-        btn.setOnAction(event -> {
-            result.setText("Verdict"+verdict(languages,ta.getText()));
-        });
+        btn.setOnAction(event -> result.setText("Verdict"+verdict(languages,ta.getText())));
 
         vBox.getChildren().addAll(btn,label,result);
         hBox.getChildren().addAll(ta,vBox);

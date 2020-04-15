@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -72,8 +71,8 @@ public class Language
                         if((this.getValue(lang)==1&&s<threshold)||(this.getValue(lang)==0&&s>=threshold))
                         {
                             stop=true;
-                            threshold = threshold+alpha*(this.getValue(lang)-(s>=threshold?1:0))*-1;
-                            //threshold = threshold+alpha*(this.getValue(l)-(s>=threshold?1:0));
+                            //threshold = threshold+alpha*(this.getValue(lang)-(s>=threshold?1:0))*-1;
+                            threshold = threshold+alpha*(this.getValue(lang)-(s>=threshold?1:0));
                             for (int i=0; i<weights.length; i++)
                                 weights[i]=weights[i] + alpha*(this.getValue(lang)-(s>=threshold?1:0))*(vector[i]);
                         }

@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,6 +9,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,13 +20,15 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 
 public class Main extends Application
 {
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         launch(args);
     }
     static void checkAll(List<Language> languages)
@@ -41,6 +46,15 @@ public class Main extends Application
                 }
             }
         }
+    }
+
+    static String verdict(List<Language> languages,String text)
+    {
+        List<String> result = new ArrayList<>();
+        for(Language l : languages)
+            if(l.getName().equals(l.check(text)))
+                result.add(l.getName());
+        return "("+result.size()+"):\n"+result.get(new Random().nextInt(result.size()));
     }
 
     static void checkFromTxt(List<Language> languages) throws IOException
@@ -113,22 +127,25 @@ public class Main extends Application
         VBox vBox = new VBox();
         TextArea ta = new TextArea();
         ta.setWrapText(true);
-        StringBuilder labelText= new StringBuilder("Avaiable languages: \n");
+
+        StringBuilder labelText= new StringBuilder();
         for(Language l : languages)
             labelText.append(l.name).append("\n");
-        Label label = new Label(labelText.toString());
+        Label label = new Label("Available languages:\n"+labelText.toString());
+        label.setFont(Font.font(15));
+
         Label result = new Label();
+        result.setFont(Font.font("verdana", FontWeight.BOLD,18));
+        result.setStyle("-fx-text-fill: red;");
+
         Button btn = new Button();
         btn.setText("Check text");
-        vBox.getChildren().addAll(btn,label,result);
-        hBox.getChildren().addAll(ta,vBox);
         btn.setOnAction(event -> {
-            StringBuilder res = new StringBuilder();
-            for(Language l : languages)
-                res.append(l.name).append(":").append(l.check(ta.getText())).append("\n");
-            result.setText(res.toString());
+            result.setText("Verdict"+verdict(languages,ta.getText()));
         });
 
+        vBox.getChildren().addAll(btn,label,result);
+        hBox.getChildren().addAll(ta,vBox);
         primaryStage.setScene(new Scene(hBox, 640, 480));
         primaryStage.setResizable(false);
         primaryStage.show();

@@ -12,6 +12,10 @@ public class Iris
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setGroup(int group) {
         this.group = group;
     }

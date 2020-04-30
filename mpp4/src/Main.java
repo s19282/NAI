@@ -10,9 +10,10 @@ public class Main {
         List<Iris> flowers = readData("iris_test.txt");
         int k;
         double[][] centroids;
-        System.out.println("Podaj k: ");
+        System.out.print("Podaj k: ");
         Scanner s = new Scanner(System.in);
         k=s.nextInt();
+        System.out.println("========================");
         centroids = new double[k][flowers.get(0).getAttributes().length];
         //generateValues(centroids);
         getValuesFromList(flowers,centroids);
@@ -29,6 +30,7 @@ public class Main {
             {
                 for(int i=0; i<k; i++)
                     distances.put(i,iris.calculateDistance(centroids[i]));
+
                 iris.setGroup(Collections.min(distances.entrySet(), Map.Entry.comparingByValue()).getKey());
                 distances.clear();
             }
@@ -36,36 +38,45 @@ public class Main {
             double[][] oldCentroids = centroids;
             centroids = new double[k][flowers.get(0).getAttributes().length];
             int[] groupCounter = new int[k];
+
             for(Iris iris : flowers)
             {
                 for (int i = 0; i < iris.getAttributes().length; i++)
                     centroids[iris.getGroup()][i] += iris.getAttributes()[i];
+
                 groupCounter[iris.getGroup()]++;
             }
-            for(int i=0; i<centroids.length; i++) {
+            for(int i=0; i<centroids.length; i++)
+            {
                 for (int j = 0; j < centroids[i].length; j++)
                     if(groupCounter[i]==0)
                         centroids[i][j]=0;
                     else
                         centroids[i][j] /= groupCounter[i];
             }
-            System.out.println("centroids: "+Arrays.deepToString(centroids));
+            //System.out.println("centroids: "+Arrays.deepToString(centroids));
 
             if(Arrays.deepEquals(oldCentroids,centroids))
                 enough=true;
             //suma kwadratów odległości punktów do środka grupy
             double[] tmp = new double[k];
+
             for(Iris iris : flowers)
                 tmp[iris.getGroup()]+=iris.calculateDistance(centroids[iris.getGroup()]);
+
             for(int i=0; i<k; i++)
-                System.out.println("Group: "+i+" sum: "+tmp[i]);
+                System.out.println("Group: " + i + " sum: " + tmp[i]);
+
+            System.out.println("------------------------");
         }
         flowers.sort(Comparator.comparingInt(Iris::getGroup));
         System.out.println("========================");
         for(Iris iris : flowers)
             System.out.println("Group: "+iris.getGroup()+" "+iris.toString());
+
         System.out.println("========================");
         calculateEntropy(flowers,k);
+        System.out.println("========================");
     }
 
     public static void calculateEntropy(List<Iris> flowers, int k)
@@ -95,7 +106,8 @@ public class Main {
                 probability[0] /= actualGroup;
                 probability[1] /= actualGroup;
                 probability[2] /= actualGroup;
-                for (int j = 0; j < 3; j++) {
+                for (int j = 0; j < 3; j++)
+                {
                     if (probability[j] != 0 && probability[j] != 1)
                         entropy += log2(probability[j]) * probability[j];
                 }
@@ -141,16 +153,12 @@ public class Main {
     public static void generateValues(double[][] v)
     {
         for(int i=0; i<v.length; i++)
-        {
            for(int j=0; j<v[i].length; j++)
                v[i][j]=Math.random()*10;
-        }
     }
     public static void getValuesFromList(List<Iris> flowers,double[][]v)
     {
         for(int i=0; i<v.length; i++)
-        {
             v[i]=flowers.get(i).getAttributes();
-        }
     }
 }

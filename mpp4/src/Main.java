@@ -159,6 +159,6 @@ public class Main {
     public static void getValuesFromList(List<Iris> flowers,double[][]v)
     {
         for(int i=0; i<v.length; i++)
-            v[i]=flowers.get(i).getAttributes();
+            v[i]=flowers.get((int)(Math.random()*flowers.size())).getAttributes();
     }
 }

@@ -14,7 +14,8 @@ public class Main {
         Scanner s = new Scanner(System.in);
         k=s.nextInt();
         centroids = new double[k][flowers.get(0).getAttributes().length];
-        generateValues(centroids);
+        //generateValues(centroids);
+        getValuesFromList(flowers,centroids);
         doMagic(flowers,k,centroids);
     }
     public static void doMagic(List<Iris> flowers,int k,double[][] centroids)
@@ -43,7 +44,10 @@ public class Main {
             }
             for(int i=0; i<centroids.length; i++) {
                 for (int j = 0; j < centroids[i].length; j++)
-                    centroids[i][j] /= groupCounter[i];
+                    if(groupCounter[i]==0)
+                        centroids[i][j]=0;
+                    else
+                        centroids[i][j] /= groupCounter[i];
             }
             System.out.println("centroids: "+Arrays.deepToString(centroids));
 
@@ -140,6 +144,13 @@ public class Main {
         {
            for(int j=0; j<v[i].length; j++)
                v[i][j]=Math.random()*10;
+        }
+    }
+    public static void getValuesFromList(List<Iris> flowers,double[][]v)
+    {
+        for(int i=0; i<v.length; i++)
+        {
+            v[i]=flowers.get(i).getAttributes();
         }
     }
 }

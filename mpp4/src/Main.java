@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args)
     {
-        List<Iris> flowers = readData("iris_test.txt");
+        List<Iris> flowers = readData("iris_training.txt");
         int k;
         double[][] centroids;
         System.out.print("Podaj k: ");
@@ -97,7 +97,6 @@ public class Main {
                 else if(iris.getGroup()==i&&iris.getName().equals("Iris-virginica"))
                     probability[2]++;
             }
-
             System.out.print("Group: " + i);
             if(probability[0]==0 && probability[1]==0 && probability[2]==0 && actualGroup==0)
                 System.out.println(" Empty");

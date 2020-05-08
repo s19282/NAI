@@ -26,12 +26,6 @@ public class Main
         for(Iris iris : test)
         {
             calculateIrisProbability(iris,training,countIrisTypes);
-//            HashMap<String,Probability> prob = new HashMap<>();
-//            for(Map.Entry<String,Integer> entry : countGroups.entrySet())
-//            {
-//                prob.put(entry.getKey(),calculateIrisProbability(iris,training,countGroups,entry.getKey()));
-//            }
-//            System.out.println(iris.toString()+" --- "+Collections.min(prob.entrySet(), Map.Entry.comparingByValue()).getKey());
         }
 
     }
@@ -59,11 +53,11 @@ public class Main
             p.setAfterSmoothing(probability);
             allProbabilities.put(entry.getKey(),p);
         }
-        Map.Entry<String,Probability> theSmallest = Collections.min(allProbabilities.entrySet(),Map.Entry.comparingByValue());
+        Map.Entry<String,Probability> theBiggest = Collections.max(allProbabilities.entrySet(),Map.Entry.comparingByValue());
 
-        System.out.println(iris.toString()+" - "+theSmallest.getKey());
-        System.out.println("Before smoothing: "+theSmallest.getValue().getBeforeSmoothing());
-        System.out.println("After smoothing: "+theSmallest.getValue().getAfterSmoothing());
+        System.out.println(iris.toString()+" - "+theBiggest.getKey());
+        System.out.println("Before smoothing: "+theBiggest.getValue().getBeforeSmoothing());
+        System.out.println("After smoothing: "+theBiggest.getValue().getAfterSmoothing());
         System.out.println("=================");
     }
 

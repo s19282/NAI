@@ -5,10 +5,10 @@ public class Iris
     double[] attributes;
     String name;
     int value;
-    public Iris(double[] attributes, String decision)
+    public Iris(double[] attributes, String name)
     {
         this.attributes = attributes;
-        this.name = decision;
+        this.name = name;
     }
 
     public double[] getAttributes() {

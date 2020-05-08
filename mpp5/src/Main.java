@@ -11,10 +11,16 @@ public class Main
         List<Iris> test = readData("iris_test.txt");
         HashMap<String,Integer> countIrisTypes = new HashMap<>();
         HashMap<String,Integer> confusionMatrix = new HashMap<>();
-        confusionMatrix.put("TP",0);
-        confusionMatrix.put("FP",0);
-        confusionMatrix.put("FN",0);
-        confusionMatrix.put("TN",0);
+        confusionMatrix.put("setosasetosa",0);
+        confusionMatrix.put("versicolorversicolor",0);
+        confusionMatrix.put("virginicavirginica",0);
+        confusionMatrix.put("setosaversicolor",0);
+        confusionMatrix.put("setosavirginica",0);
+        confusionMatrix.put("versicolorsetosa",0);
+        confusionMatrix.put("versicolorvirginica",0);
+        confusionMatrix.put("virginicasetosa",0);
+        confusionMatrix.put("virginicaversicolor",0);
+
         for(Iris iris : training)
         {
             if(!countIrisTypes.containsKey(iris.getName()))
@@ -25,11 +31,22 @@ public class Main
 
         for(Iris iris : test)
         {
-            calculateIrisProbability(iris,training,countIrisTypes);
+            calculateIrisProbability(iris,training,countIrisTypes,confusionMatrix);
         }
+        printConfusionMatrix(confusionMatrix);
+    }
+
+    public static void printConfusionMatrix(HashMap<String,Integer> confusionMatrix)
+    {
+        System.out.println("\t\t\t\tActual class");
+        System.out.println("\t\t\t\tsetosa\tversicolor\tvirginica");
+        System.out.println("Predicted setosa \t"+confusionMatrix.get("setosasetosa")+"\t\t"+confusionMatrix.get("setosaversicolor")+"\t\t"+confusionMatrix.get("setosavirginica"));
+        System.out.println("Class versicolor\t"+confusionMatrix.get("versicolorsetosa")+"\t\t"+confusionMatrix.get("versicolorversicolor")+"\t\t"+confusionMatrix.get("versicolorvirginica"));
+        System.out.println("\t\tvirginica\t"+confusionMatrix.get("virginicasetosa")+"\t\t"+confusionMatrix.get("virginicaversicolor")+"\t\t"+confusionMatrix.get("virginicavirginica"));
+
 
     }
-    public static void calculateIrisProbability(Iris iris,List<Iris> list,HashMap<String,Integer> countIrisTypes)
+    public static void calculateIrisProbability(Iris iris,List<Iris> list,HashMap<String,Integer> countIrisTypes,HashMap<String,Integer> confusionMatrix)
     {
         HashMap<String,Probability> allProbabilities = new HashMap<>();
         for(Map.Entry<String,Integer> entry : countIrisTypes.entrySet())
@@ -53,11 +70,63 @@ public class Main
             allProbabilities.put(entry.getKey(),p);
         }
         Map.Entry<String,Probability> theBiggest = Collections.max(allProbabilities.entrySet(),Map.Entry.comparingByValue());
-
+        fillConfusionMatrix(confusionMatrix,iris.getName(),theBiggest.getKey());
         System.out.println(iris.toString()+" - "+theBiggest.getKey());
         System.out.println("Before smoothing: "+String.format("%2.5f" , theBiggest.getValue().getBeforeSmoothing()));
         System.out.println("After smoothing: "+String.format("%2.5f" , theBiggest.getValue().getAfterSmoothing()));
         System.out.println("=================");
+    }
+
+    public static void fillConfusionMatrix(HashMap<String,Integer> confusionMatrix,String real,String predicted)
+    {
+        switch (real.substring(real.indexOf("-")+1)+predicted.substring(real.indexOf("-")+1))
+        {
+            case "setosasetosa":
+            {
+                confusionMatrix.put("setosasetosa",confusionMatrix.get("setosasetosa")+1);
+                break;
+            }
+            case "versicolorversicolor":
+            {
+                confusionMatrix.put("versicolorversicolor",confusionMatrix.get("versicolorversicolor")+1);
+                break;
+            }
+            case "virginicavirginica":
+            {
+                confusionMatrix.put("virginicavirginica",confusionMatrix.get("virginicavirginica")+1);
+                break;
+            }
+            case "setosaversicolor":
+            {
+                confusionMatrix.put("setosaversicolor",confusionMatrix.get("setosaversicolor")+1);
+                break;
+            }
+            case "setosavirginica":
+            {
+                confusionMatrix.put("setosavirginica",confusionMatrix.get("setosavirginica")+1);
+                break;
+            }
+            case "versicolorsetosa":
+            {
+                confusionMatrix.put("versicolorsetosa",confusionMatrix.get("versicolorsetosa")+1);
+                break;
+            }
+            case "versicolorvirginica":
+            {
+                confusionMatrix.put("versicolorvirginica",confusionMatrix.get("versicolorvirginica")+1);
+                break;
+            }
+            case "virginicasetosa":
+            {
+                confusionMatrix.put("virginicasetosa",confusionMatrix.get("virginicasetosa")+1);
+                break;
+            }
+            case "virginicaversicolor":
+            {
+                confusionMatrix.put("virginicaversicolor",confusionMatrix.get("virginicaversicolor")+1);
+                break;
+            }
+        }
     }
 
     private static double getProbability(Iris iris, List<Iris> list, double probability,String name, boolean smoothFirst, boolean smoothOther)
@@ -88,13 +157,15 @@ public class Main
     }
     public static double calculateSingleProbability(int position, List<Iris> list,double value,String name,boolean smoothing)
     {
-        double probability = smoothing ? 1 : 0;
+        double probability = smoothing ? 1D : 0D;
         for(Iris iris : list)
         {
             if(iris.getAttributes()[position]==value && iris.getName().equals(name))
                 probability++;
         }
         probability/= smoothing ? countMyGroupCardinality(position,value,list)+countDiffGroups(position,list) : countMyGroupCardinality(position,value,list);
+        if(Double.isNaN(probability))
+            probability=0D;
         return probability;
     }
 

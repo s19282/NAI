@@ -31,14 +31,44 @@ public class Main
 
         for(Iris iris : test)
         {
-            calculateIrisProbability(iris,training,countIrisTypes,confusionMatrix);
+            calculateIrisProbability(iris,training,countIrisTypes,confusionMatrix,false);
         }
         printConfusionMatrix(confusionMatrix,test);
+
+        readFromKeyboard(training,countIrisTypes,confusionMatrix);
+    }
+
+    public static void readFromKeyboard(List<Iris> list,HashMap<String,Integer> countIrisTypes,HashMap<String,Integer> confusionMatrix)
+    {
+        boolean endLoop=false;
+        while(!endLoop)
+        {
+            try {
+                System.out.print("Type new Iris values: ");
+                Scanner s = new Scanner(System.in);
+                String line = s.nextLine();
+                line = line.replaceAll(",", ".");
+                String[] tmp = line.split("\\s+");
+
+                calculateIrisProbability(new Iris(Arrays.stream(tmp)
+                        .mapToDouble(Double::parseDouble)
+                        .toArray()), list, countIrisTypes, confusionMatrix, true);
+                System.out.println("Do you want to finish (T/F)?");
+                s = new Scanner(System.in);
+                String end = s.nextLine();
+                if(end.equals("T"))
+                    endLoop=true;
+            }
+            catch (Exception e)
+            {
+                System.out.println("Error! Try again");
+            }
+        }
     }
 
     public static void printConfusionMatrix(HashMap<String,Integer> confusionMatrix,List<Iris> list)
     {
-        System.out.println("\t\t\t\tActual class");
+        System.out.println("\t\t\t\t\t\tActual class");
         System.out.println("\t\t\t\tsetosa\tversicolor\tvirginica");
         System.out.println("Predicted setosa \t"+confusionMatrix.get("setosasetosa")+"\t\t"+confusionMatrix.get("setosaversicolor")+"\t\t"+confusionMatrix.get("setosavirginica"));
         System.out.println("Class versicolor\t"+confusionMatrix.get("versicolorsetosa")+"\t\t"+confusionMatrix.get("versicolorversicolor")+"\t\t"+confusionMatrix.get("versicolorvirginica"));
@@ -48,9 +78,11 @@ public class Main
         int errorRate = 100-accuracy;
         System.out.println("Accuracy: "+accuracy+"%");
         System.out.println("Error Rate: "+errorRate+"%");
+        System.out.println("=================");
 
     }
-    public static void calculateIrisProbability(Iris iris,List<Iris> list,HashMap<String,Integer> countIrisTypes,HashMap<String,Integer> confusionMatrix)
+
+    public static void calculateIrisProbability(Iris iris,List<Iris> list,HashMap<String,Integer> countIrisTypes,HashMap<String,Integer> confusionMatrix,boolean checkOne)
     {
         HashMap<String,Probability> allProbabilities = new HashMap<>();
         for(Map.Entry<String,Integer> entry : countIrisTypes.entrySet())
@@ -74,8 +106,13 @@ public class Main
             allProbabilities.put(entry.getKey(),p);
         }
         Map.Entry<String,Probability> theBiggest = Collections.max(allProbabilities.entrySet(),Map.Entry.comparingByValue());
-        fillConfusionMatrix(confusionMatrix,iris.getName(),theBiggest.getKey());
-        System.out.println(iris.toString()+" - "+theBiggest.getKey());
+        if(!checkOne)
+        {
+            fillConfusionMatrix(confusionMatrix, iris.getName(), theBiggest.getKey());
+            System.out.println(iris.toString() + " - " + theBiggest.getKey());
+        }
+        else
+            System.out.println(iris.toString() + " --> " + theBiggest.getKey());
         System.out.println("Before smoothing: "+String.format("%2.5f" , theBiggest.getValue().getBeforeSmoothing()));
         System.out.println("After smoothing: "+String.format("%2.5f" , theBiggest.getValue().getAfterSmoothing()));
         System.out.println("=================");

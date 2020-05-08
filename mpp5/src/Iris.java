@@ -38,7 +38,7 @@ public class Iris
     public Iris(double[] attributes)
     {
         this.attributes = attributes;
-        name ="Unknown";
+        name="";
     }
 
     @Override

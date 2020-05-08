@@ -33,17 +33,21 @@ public class Main
         {
             calculateIrisProbability(iris,training,countIrisTypes,confusionMatrix);
         }
-        printConfusionMatrix(confusionMatrix);
+        printConfusionMatrix(confusionMatrix,test);
     }
 
-    public static void printConfusionMatrix(HashMap<String,Integer> confusionMatrix)
+    public static void printConfusionMatrix(HashMap<String,Integer> confusionMatrix,List<Iris> list)
     {
         System.out.println("\t\t\t\tActual class");
         System.out.println("\t\t\t\tsetosa\tversicolor\tvirginica");
         System.out.println("Predicted setosa \t"+confusionMatrix.get("setosasetosa")+"\t\t"+confusionMatrix.get("setosaversicolor")+"\t\t"+confusionMatrix.get("setosavirginica"));
         System.out.println("Class versicolor\t"+confusionMatrix.get("versicolorsetosa")+"\t\t"+confusionMatrix.get("versicolorversicolor")+"\t\t"+confusionMatrix.get("versicolorvirginica"));
         System.out.println("\t\tvirginica\t"+confusionMatrix.get("virginicasetosa")+"\t\t"+confusionMatrix.get("virginicaversicolor")+"\t\t"+confusionMatrix.get("virginicavirginica"));
-
+        System.out.println();
+        int accuracy = (confusionMatrix.get("setosasetosa")+confusionMatrix.get("versicolorversicolor")+confusionMatrix.get("virginicavirginica"))*100/list.size();
+        int errorRate = 100-accuracy;
+        System.out.println("Accuracy: "+accuracy+"%");
+        System.out.println("Error Rate: "+errorRate+"%");
 
     }
     public static void calculateIrisProbability(Iris iris,List<Iris> list,HashMap<String,Integer> countIrisTypes,HashMap<String,Integer> confusionMatrix)

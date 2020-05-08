@@ -11,6 +11,30 @@ public class Main
         List<Iris> test = readData("iris_test.txt");
         HashMap<String,Integer> countIrisTypes = new HashMap<>();
         HashMap<String,Integer> confusionMatrix = new HashMap<>();
+
+        countIrisTypesCardinality(training,countIrisTypes);
+        createConfusionMatrix(confusionMatrix);
+
+        for(Iris iris : test)
+            calculateIrisProbability(iris,training,countIrisTypes,confusionMatrix,false);
+
+        printConfusionMatrix(confusionMatrix,test);
+        readFromKeyboard(training,countIrisTypes,confusionMatrix);
+    }
+
+    public static void countIrisTypesCardinality(List<Iris> training, HashMap<String,Integer> countIrisTypes)
+    {
+        for(Iris iris : training)
+        {
+            if(!countIrisTypes.containsKey(iris.getName()))
+                countIrisTypes.put(iris.getName(),1);
+            else
+                countIrisTypes.put(iris.getName(),countIrisTypes.get(iris.getName())+1);
+        }
+    }
+
+    public static void createConfusionMatrix(HashMap<String,Integer> confusionMatrix)
+    {
         confusionMatrix.put("setosasetosa",0);
         confusionMatrix.put("versicolorversicolor",0);
         confusionMatrix.put("virginicavirginica",0);
@@ -20,22 +44,6 @@ public class Main
         confusionMatrix.put("versicolorvirginica",0);
         confusionMatrix.put("virginicasetosa",0);
         confusionMatrix.put("virginicaversicolor",0);
-
-        for(Iris iris : training)
-        {
-            if(!countIrisTypes.containsKey(iris.getName()))
-                countIrisTypes.put(iris.getName(),1);
-            else
-             countIrisTypes.put(iris.getName(),countIrisTypes.get(iris.getName())+1);
-        }
-
-        for(Iris iris : test)
-        {
-            calculateIrisProbability(iris,training,countIrisTypes,confusionMatrix,false);
-        }
-        printConfusionMatrix(confusionMatrix,test);
-
-        readFromKeyboard(training,countIrisTypes,confusionMatrix);
     }
 
     public static void readFromKeyboard(List<Iris> list,HashMap<String,Integer> countIrisTypes,HashMap<String,Integer> confusionMatrix)
@@ -43,14 +51,15 @@ public class Main
         boolean endLoop=false;
         while(!endLoop)
         {
-            try {
+            try
+            {
                 System.out.print("Type new Iris values: ");
                 Scanner s = new Scanner(System.in);
                 String line = s.nextLine();
                 line = line.replaceAll(",", ".");
-                String[] tmp = line.split("\\s+");
+                String[] attributes = line.split("\\s+");
 
-                calculateIrisProbability(new Iris(Arrays.stream(tmp)
+                calculateIrisProbability(new Iris(Arrays.stream(attributes)
                         .mapToDouble(Double::parseDouble)
                         .toArray()), list, countIrisTypes, confusionMatrix, true);
                 System.out.println("Do you want to finish (T/F)?");
@@ -88,24 +97,22 @@ public class Main
         for(Map.Entry<String,Integer> entry : countIrisTypes.entrySet())
         {
             Probability p = new Probability();
-            double probability=0;
 
+            double probability=0;
             probability = getProbability(iris, list, probability,entry.getKey(),false, false);
             probability*=(double)countIrisTypes.get(entry.getKey())/list.size();
             p.setBeforeSmoothing(probability);
+
             if(probability==0)
-            {
                 probability = getProbability(iris, list, probability,entry.getKey(), true, true);
-            }
             else
-            {
                 probability = getProbability(iris, list, probability,entry.getKey(), true, false);
-            }
             probability*=(double)countIrisTypes.get(entry.getKey())/list.size();
             p.setAfterSmoothing(probability);
             allProbabilities.put(entry.getKey(),p);
         }
         Map.Entry<String,Probability> theBiggest = Collections.max(allProbabilities.entrySet(),Map.Entry.comparingByValue());
+
         if(!checkOne)
         {
             fillConfusionMatrix(confusionMatrix, iris.getName(), theBiggest.getKey());
@@ -172,8 +179,10 @@ public class Main
 
     private static double getProbability(Iris iris, List<Iris> list, double probability,String name, boolean smoothFirst, boolean smoothOther)
     {
-        for (int i = 0; i < iris.getAttributes().length; i++) {
-            if (i == 0) probability += calculateSingleProbability(i, list, iris.getAttributes()[i],name, smoothFirst);
+        for (int i = 0; i < iris.getAttributes().length; i++)
+        {
+            if (i == 0)
+                probability += calculateSingleProbability(i, list, iris.getAttributes()[i],name, smoothFirst);
             else
                 probability *= calculateSingleProbability(i, list, iris.getAttributes()[i],name, smoothOther);
         }

@@ -38,26 +38,25 @@ public class Main
             double probability=0;
 
             probability = getProbability(iris, list, probability,entry.getKey(),false, false);
-            probability*=countIrisTypes.get(entry.getKey());
+            probability*=(double)countIrisTypes.get(entry.getKey())/list.size();
             p.setBeforeSmoothing(probability);
             if(probability==0)
             {
-
                 probability = getProbability(iris, list, probability,entry.getKey(), true, true);
             }
             else
             {
                 probability = getProbability(iris, list, probability,entry.getKey(), true, false);
             }
-            probability*=countIrisTypes.get(entry.getKey());
+            probability*=(double)countIrisTypes.get(entry.getKey())/list.size();
             p.setAfterSmoothing(probability);
             allProbabilities.put(entry.getKey(),p);
         }
         Map.Entry<String,Probability> theBiggest = Collections.max(allProbabilities.entrySet(),Map.Entry.comparingByValue());
 
         System.out.println(iris.toString()+" - "+theBiggest.getKey());
-        System.out.println("Before smoothing: "+theBiggest.getValue().getBeforeSmoothing());
-        System.out.println("After smoothing: "+theBiggest.getValue().getAfterSmoothing());
+        System.out.println("Before smoothing: "+String.format("%2.5f" , theBiggest.getValue().getBeforeSmoothing()));
+        System.out.println("After smoothing: "+String.format("%2.5f" , theBiggest.getValue().getAfterSmoothing()));
         System.out.println("=================");
     }
 
@@ -98,47 +97,6 @@ public class Main
         probability/= smoothing ? countMyGroupCardinality(position,value,list)+countDiffGroups(position,list) : countMyGroupCardinality(position,value,list);
         return probability;
     }
-
-//    public static Probability calculateIrisProbability(Iris iris,List<Iris> list,HashMap<String,Integer> countGroups,String name)
-//    {
-//        List<Double> attributes = new ArrayList<>();
-//        Probability p = new Probability();
-//        double probability=0d;
-//        for(int i=0; i<iris.getAttributes().length; i++)
-//        {
-//            double tmp = calculateSingleProbability(i,iris.getAttributes()[i],list,countGroups,name);
-//            attributes.add(tmp);
-//            if(probability==0)
-//                probability=tmp;
-//            else
-//                probability*=tmp;
-//        }
-//        probability*=((double) countGroups.get(name) /list.size());
-//        p.setBeforeSmoothing(probability);
-//        probability=0;
-//        if(attributes.contains(0D))
-//        {
-//            for(Double val : attributes)
-//            {
-//                if()
-//            }
-//        }
-//        else
-//        {
-//
-//        }
-//        return p;
-//    }
-//    public static double calculateSingleProbability(int pos,Double val,List<Iris> list,HashMap<String,Integer> countGroups,String name)
-//    {
-//        double counter = 0;
-//        for(Iris iris : list)
-//            if((iris.getAttributes()[pos]==val) && (name.equals(iris.getName())))
-//                counter++;
-//        return counter/countGroups.get(name);//poprawic
-//    }
-//
-//    public static int countDiffGroup()
 
 
     public static List<Iris> readData(String path)

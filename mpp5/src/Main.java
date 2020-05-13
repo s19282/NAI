@@ -75,18 +75,33 @@ public class Main
         }
     }
 
-    public static void printConfusionMatrix(HashMap<String,Integer> confusionMatrix,List<Iris> list)
+    public static void printConfusionMatrix(HashMap<String,Integer> cm,List<Iris> list)
     {
         System.out.println("\t\t\t\t\t\tActual class");
         System.out.println("\t\t\t\tsetosa\tversicolor\tvirginica");
-        System.out.println("Predicted setosa \t"+confusionMatrix.get("setosasetosa")+"\t\t"+confusionMatrix.get("setosaversicolor")+"\t\t"+confusionMatrix.get("setosavirginica"));
-        System.out.println("Class versicolor\t"+confusionMatrix.get("versicolorsetosa")+"\t\t"+confusionMatrix.get("versicolorversicolor")+"\t\t"+confusionMatrix.get("versicolorvirginica"));
-        System.out.println("\t\tvirginica\t"+confusionMatrix.get("virginicasetosa")+"\t\t"+confusionMatrix.get("virginicaversicolor")+"\t\t"+confusionMatrix.get("virginicavirginica"));
+        System.out.println("Predicted setosa \t"+cm.get("setosasetosa")+"\t\t"+cm.get("setosaversicolor")+"\t\t"+cm.get("setosavirginica"));
+        System.out.println("Class versicolor\t"+cm.get("versicolorsetosa")+"\t\t"+cm.get("versicolorversicolor")+"\t\t"+cm.get("versicolorvirginica"));
+        System.out.println("\t\tvirginica\t"+cm.get("virginicasetosa")+"\t\t"+cm.get("virginicaversicolor")+"\t\t"+cm.get("virginicavirginica"));
         System.out.println();
-        int accuracy = (confusionMatrix.get("setosasetosa")+confusionMatrix.get("versicolorversicolor")+confusionMatrix.get("virginicavirginica"))*100/list.size();
+        int accuracy = (cm.get("setosasetosa")+cm.get("versicolorversicolor")+cm.get("virginicavirginica"))*100/list.size();
         int errorRate = 100-accuracy;
         System.out.println("Accuracy: "+accuracy+"%");
         System.out.println("Error Rate: "+errorRate+"%");
+        System.out.println();
+
+        System.out.println("\t\t\tPrecision\tRecall\tF1");
+        double setosaPrecision=(double)cm.get("setosasetosa")/(cm.get("setosasetosa")+cm.get("setosaversicolor")+cm.get("setosavirginica"));
+        double setosaRecall=(double)cm.get("setosasetosa")/(cm.get("setosasetosa")+cm.get("versicolorsetosa")+cm.get("virginicasetosa"));
+        double setosaF1=(2*setosaPrecision*setosaRecall)/(setosaPrecision+setosaRecall);
+        System.out.println("setosa\t\t"+setosaPrecision+"\t\t\t"+setosaRecall+"\t\t"+setosaF1);
+        double versicolorPrecision=(double)cm.get("versicolorversicolor")/(cm.get("versicolorsetosa")+cm.get("versicolorversicolor")+cm.get("versicolorvirginica"));
+        double versicolorRecall=(double)cm.get("versicolorversicolor")/(cm.get("setosaversicolor")+cm.get("versicolorversicolor")+cm.get("virginicaversicolor"));
+        double versicolorF1=(2*versicolorPrecision*versicolorRecall)/(versicolorPrecision+versicolorRecall);
+        System.out.println("versicolor\t"+versicolorPrecision+"\t\t\t"+versicolorRecall+"\t\t"+versicolorF1);
+        double virginicaPrecision=(double)cm.get("virginicavirginica")/(cm.get("virginicasetosa")+cm.get("virginicaversicolor")+cm.get("virginicavirginica"));
+        double virginicaRecall=(double)cm.get("virginicavirginica")/(cm.get("setosavirginica")+cm.get("versicolorvirginica")+cm.get("virginicavirginica"));
+        double virginicaF1=(2*virginicaPrecision*virginicaRecall)/(virginicaPrecision+virginicaRecall);
+        System.out.println("virginica\t"+virginicaPrecision+"\t\t\t"+virginicaRecall+"\t\t"+virginicaF1);
         System.out.println("=================");
 
     }

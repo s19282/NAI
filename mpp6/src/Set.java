@@ -19,7 +19,7 @@ public class Set implements Comparable<Set>
     public List<Integer> getSizes() {
         return sizes;
     }
-    public int getSizes(int n) {
+    public int getSize(int n) {
         return sizes.get(n);
     }
 

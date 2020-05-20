@@ -7,6 +7,7 @@ public class Set implements Comparable<Set>
     private List<Integer> sizes;
     private List<Integer> values;
 
+
     public  Set(){}
 
     public static int getCapacity() {

@@ -7,18 +7,8 @@ public class Set implements Comparable<Set>
     private int number;
     private List<Integer> sizes;
     private List<Integer> values;
-    private static final HashMap<Integer,SingleObject> outputObjects = new HashMap<>();
 
     public  Set() { }
-
-    public static HashMap<Integer, SingleObject> getOutputObject()
-    {
-        return outputObjects;
-    }
-    public static void addToOutputMap(SingleObject object)
-    {
-        outputObjects.put(object.getNumber(),object);
-    }
 
     public static int getCapacity() {
         return capacity;

@@ -14,11 +14,13 @@ public class Main {
         int setNR = (int)(Math.random()*10);
         System.out.println("Set nr: "+setNR);
         ArrayList<Integer> selectedItems = new ArrayList<>();
-        long startTime = System.nanoTime();
+        long executionTime = System.nanoTime();
         knapSack(104,new int[]{25,35,45,5,25,3,2,2},new int[]{350,400,450,20,70,8,5,5},8,selectedItems);
-        System.out.println("Execution time: "+ TimeUnit.SECONDS.convert(System.nanoTime()-startTime,TimeUnit.NANOSECONDS) +"s");
+        executionTime = System.nanoTime()-executionTime;
         for(Integer i : selectedItems)
-            System.out.println();
+            System.out.println("Item nr="+i+", size="+sets.get(setNR).getSize(i)+", value="+sets.get(setNR).getValue(i));
+
+        System.out.println("Execution time: "+ TimeUnit.SECONDS.convert(executionTime,TimeUnit.NANOSECONDS) +"s");
     }
 
     //https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/

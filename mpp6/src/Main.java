@@ -10,15 +10,14 @@ public class Main {
     public static void main(String[] args) throws IOException
     {
         List<Set> sets = new ArrayList<>();
-        readFromFile(sets);
+        readFromNewFile(sets);
 
-        int setNR = (int)(Math.random()*10);
+        int setNR = (int)(Math.random()*15);
         System.out.println("Set nr: "+setNR);
         System.out.println("Capacity: "+Set.getCapacity());
-
         ArrayList<Integer> selectedItems = new ArrayList<>();
         long executionTime = System.nanoTime();
-        knapSack(Set.getCapacity(),sets.get(setNR).getWeights(),sets.get(setNR).getValues(),sets.get(0).getValues().length,selectedItems);
+        knapSack(Set.getCapacity(),sets.get(setNR).getWeights(),sets.get(setNR).getValues(),Set.getN(),selectedItems);
         executionTime = System.nanoTime()-executionTime;
         int finalSize=0;
         int finalValue=0;
@@ -69,7 +68,49 @@ public class Main {
         }
     }
 
-    public static void  readFromFile(List<Set> sets) throws IOException
+    public static void  readFromNewFile(List<Set> sets) throws IOException
+    {
+        Scanner s = new Scanner(Paths.get("plecak.txt"));
+        Pattern p = Pattern.compile("length - (\\d+), capacity (\\d+)");
+        Matcher m = p.matcher(s.nextLine());
+
+        if(m.matches())
+        {
+            Set.setCapacity(Integer.parseInt(m.group(2)));
+            Set.setN(Integer.parseInt(m.group(1)));
+        }
+        int[] sizes;
+        int[] values;
+        Set tmpSet = new Set();
+        p = Pattern.compile("(sizes|vals|dataset) ((\\d+)+:|=\\s+\\{(((\\d+),\\s*)+(\\d)+)}\\s+)");
+        while (s.hasNext())
+        {
+            String line = s.nextLine();
+            m = p.matcher(line);
+            if(m.matches())
+            {
+                switch (m.group(1))
+                {
+                    case "sizes":
+                        sizes = Arrays.stream(m.group(4).split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();
+                        tmpSet.setWeights(sizes);
+                        break;
+                    case "vals":
+                        values = Arrays.stream(m.group(4).split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();
+                        tmpSet.setValues(values);
+                        sets.add(tmpSet);
+                        tmpSet = new Set();
+                        s.nextLine();
+                        break;
+                    case "dataset":
+                        tmpSet.setNumber(Integer.parseInt(m.group(3)));
+                        break;
+                }
+            }
+        }
+    }
+
+    public static void  readFromOldFile(List<Set> sets) throws IOException
     {
         Scanner s = new Scanner(Paths.get("plecak_old.txt"));
         Set.setCapacity(Integer.parseInt(s.nextLine().split(" ")[1]));

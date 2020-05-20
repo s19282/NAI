@@ -4,11 +4,20 @@ import java.util.List;
 public class Set implements Comparable<Set>
 {
     private static int capacity;
+    private static int n;
     private int number;
     private int[] weights;
     private int[] values;
 
     public  Set() { }
+
+    public static int getN() {
+        return n;
+    }
+
+    public static void setN(int n) {
+        Set.n = n;
+    }
 
     public static int getCapacity() {
         return capacity;

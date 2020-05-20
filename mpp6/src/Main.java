@@ -14,12 +14,25 @@ public class Main {
 
         int setNR = (int)(Math.random()*10);
         System.out.println("Set nr: "+setNR);
+        System.out.println("Capacity: "+Set.getCapacity());
+
         ArrayList<Integer> selectedItems = new ArrayList<>();
         long executionTime = System.nanoTime();
         knapSack(Set.getCapacity(),sets.get(setNR).getWeights(),sets.get(setNR).getValues(),sets.get(0).getValues().length,selectedItems);
         executionTime = System.nanoTime()-executionTime;
+        int finalSize=0;
+        int finalValue=0;
+
         for(Integer i : selectedItems)
-            System.out.println("Item nr="+i+", size="+sets.get(setNR).getSize(i)+", value="+sets.get(setNR).getValue(i));
+        {
+            int size = sets.get(setNR).getSize(i);
+            int value = sets.get(setNR).getValue(i);
+            finalSize+=size;
+            finalValue+=value;
+            System.out.println("Item nr="+i+", size="+size+", value="+value);
+        }
+        System.out.println("Final items size: "+finalSize);
+        System.out.println("Final items value: "+finalValue);
 
         System.out.println("Execution time: "+ TimeUnit.SECONDS.convert(executionTime,TimeUnit.NANOSECONDS) +"s");
     }

@@ -11,11 +11,12 @@ public class Main {
     {
         List<Set> sets = new ArrayList<>();
         readFromFile(sets);
+
         int setNR = (int)(Math.random()*10);
         System.out.println("Set nr: "+setNR);
         ArrayList<Integer> selectedItems = new ArrayList<>();
         long executionTime = System.nanoTime();
-        knapSack(104,new int[]{25,35,45,5,25,3,2,2},new int[]{350,400,450,20,70,8,5,5},8,selectedItems);
+        knapSack(Set.getCapacity(),sets.get(setNR).getWeights(),sets.get(setNR).getValues(),sets.get(0).getValues().length,selectedItems);
         executionTime = System.nanoTime()-executionTime;
         for(Integer i : selectedItems)
             System.out.println("Item nr="+i+", size="+sets.get(setNR).getSize(i)+", value="+sets.get(setNR).getValue(i));
@@ -60,8 +61,8 @@ public class Main {
         Scanner s = new Scanner(Paths.get("plecak_old.txt"));
         Set.setCapacity(Integer.parseInt(s.nextLine().split(" ")[1]));
         s.nextLine();
-        List<Integer> sizes = new ArrayList<>();
-        List<Integer> values = new ArrayList<>();
+        int[] sizes;
+        int[] values;
         Set tmpSet = new Set();
         while (s.hasNext())
         {
@@ -73,17 +74,15 @@ public class Main {
                 if(m.group(1).equals("sizes"))
                 {
                     tmpSet.setNumber(Integer.parseInt(m.group(2)));
-                    Arrays.stream(m.group(3).split(",")).map(String::trim).mapToInt(Integer::parseInt).forEach(sizes::add);
-                    tmpSet.setSizes(sizes);
+                    sizes=Arrays.stream(m.group(3).split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();
+                    tmpSet.setWeights(sizes);
                 }
                 else if(m.group(1).equals("values"))
                 {
-                    Arrays.stream(m.group(3).split(",")).map(String::trim).mapToInt(Integer::parseInt).forEach(values::add);
+                    values=Arrays.stream(m.group(3).split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();
                     tmpSet.setValues(values);
                     sets.add(tmpSet);
                     tmpSet = new Set();
-                    sizes = new ArrayList<>();
-                    values = new ArrayList<>();
                 }
             }
         }

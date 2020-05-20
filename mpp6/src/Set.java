@@ -1,12 +1,12 @@
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
 
 public class Set implements Comparable<Set>
 {
     private static int capacity;
     private int number;
-    private List<Integer> sizes;
-    private List<Integer> values;
+    private int[] weights;
+    private int[] values;
 
     public  Set() { }
 
@@ -26,25 +26,25 @@ public class Set implements Comparable<Set>
         this.number = number;
     }
 
-    public List<Integer> getSizes() {
-        return sizes;
+    public int[] getWeights() {
+        return weights;
     }
     public int getSize(int n) {
-        return sizes.get(n);
+        return weights[n];
     }
 
-    public void setSizes(List<Integer> sizes) {
-        this.sizes = sizes;
+    public void setWeights(int[] weights) {
+        this.weights = weights;
     }
 
-    public List<Integer> getValues() {
+    public int[] getValues() {
         return values;
     }
     public int getValue(int n) {
-        return values.get(n);
+        return values[n];
     }
 
-    public void setValues(List<Integer> values) {
+    public void setValues(int[] values) {
         this.values = values;
     }
 
@@ -57,8 +57,8 @@ public class Set implements Comparable<Set>
     public String toString() {
         return "Set{" +
                 "number=" + number +
-                ", sizes=" + sizes +
-                ", values=" + values +
+                ", sizes=" + Arrays.toString(weights) +
+                ", values=" + Arrays.toString(values) +
                 '}';
     }
 }

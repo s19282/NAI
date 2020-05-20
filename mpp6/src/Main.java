@@ -1,9 +1,9 @@
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -13,49 +13,45 @@ public class Main {
         readFromFile(sets);
         int setNR = (int)(Math.random()*10);
         System.out.println("Set nr: "+setNR);
-        //doMagic(sets.get(setNR),10);
-        System.out.println(knapSack(Set.getCapacity(),new int[]{5,12,4,9,1,5,6,10,8,1},new int[]{9,2,7,6,10,9,4,13,0,7},10));
-    }
-    static int max(int a, int b)
-    {
-        return Math.max(a, b);
+        ArrayList<Integer> selectedItems = new ArrayList<>();
+        long startTime = System.nanoTime();
+        knapSack(104,new int[]{25,35,45,5,25,3,2,2},new int[]{350,400,450,20,70,8,5,5},8,selectedItems);
+        System.out.println("Execution time: "+ TimeUnit.SECONDS.convert(System.nanoTime()-startTime,TimeUnit.NANOSECONDS) +"s");
+        for(Integer i : selectedItems)
+            System.out.println();
     }
 
-    // Returns the maximum value that
-    // can be put in a knapsack of
-    // capacity W
-    static int knapSack(
-            int W, int wt[],
-            int val[], int n)
+    //https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
+    //https://stackoverflow.com/questions/20342386/printing-out-result-in-0-1-knapsack-recursive-brute-force
+    static int knapSack(int capacity, int[] weights, int[] values, int n,ArrayList<Integer> taken)
     {
-        // Base Case
-        if (n == 0 || W == 0)
+        if (n == 0 || capacity == 0)
             return 0;
 
-        // If weight of the nth item is
-        // more than Knapsack capacity W,
-        // then this item cannot be included
-        // in the optimal solution
-        if (wt[n - 1] > W)
-            return knapSack(W, wt, val, n - 1);
-
-            // Return the maximum of two cases:
-            // (1) nth item included
-            // (2) not included
+        if (weights[n - 1] > capacity)
+            return knapSack(capacity, weights, values, n - 1,taken);
         else
-            return max(
-                    val[n - 1] + knapSack(W - wt[n - 1],
-                            wt, val, n - 1),
-                    knapSack(W, wt, val, n - 1));
+        {
+            final int preTookSize = taken.size();
+            final int took = values[n - 1] + knapSack(capacity - weights[n - 1], weights, values, n - 1,taken);
+            final int preLeftSize = taken.size();
+            final int left = knapSack(capacity, weights, values, n - 1,taken);
+
+            if(took>left)
+            {
+                if (taken.size() > preLeftSize)
+                    taken.subList(preLeftSize, taken.size()).clear();
+                taken.add(n - 1);
+                return took;
+            }
+            else
+            {
+                if(preLeftSize>preTookSize)
+                    taken.subList(preTookSize,preLeftSize).clear();
+                return left;
+            }
+        }
     }
-//    public static void doMagic(Set set,int n)
-//    {
-//        //https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
-//        if(n==0 || Set.getCapacity()==0)
-//            return 0;
-//
-//
-//    }
 
     public static void  readFromFile(List<Set> sets) throws IOException
     {

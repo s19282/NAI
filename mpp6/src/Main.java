@@ -47,26 +47,36 @@ public class Main
     {
         int maxWeight=0;
         int maxValue=0;
+        List<SingleObject> finalObjects = new ArrayList<>();
 
         for(int i=0; i<Math.pow(2,Set.getN()); i++)
         {
+            List<SingleObject> tmpList = new ArrayList<>();
             int tmpWeight = 0;
             int tmpValue = 0;
             String singleCombination = Integer.toBinaryString(i);
             for (int j = 0; j < singleCombination.length(); j++)
-                if (singleCombination.charAt(j) == '1') {
+            {
+                if (singleCombination.charAt(j) == '1')
+                {
                     tmpWeight += set.getSize(j);
                     tmpValue += set.getValue(j);
+                    tmpList.add(new SingleObject(j,set.getSize(j),set.getValue(j)));
                 }
+            }
             if (tmpWeight <= Set.getCapacity() && tmpValue > maxValue)
             {
                 maxValue = tmpValue;
                 maxWeight = tmpWeight;
+                finalObjects.clear();
+                finalObjects.addAll(tmpList);
             }
         }
+        for(SingleObject so : finalObjects)
+            System.out.println(so.toString());
+        System.out.println("-------------------");
         System.out.println("Weight: "+maxWeight);
         System.out.println("Value: "+maxValue);
-
     }
 
     //https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/

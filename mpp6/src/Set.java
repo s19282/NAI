@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.List;
 
 public class Set implements Comparable<Set>
 {
@@ -25,10 +24,6 @@ public class Set implements Comparable<Set>
 
     public static void setCapacity(int capacity) {
         Set.capacity = capacity;
-    }
-
-    public int getNumber() {
-        return number;
     }
 
     public void setNumber(int number) {

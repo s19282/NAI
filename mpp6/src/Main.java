@@ -11,17 +11,19 @@ public class Main {
     {
         List<Set> sets = new ArrayList<>();
         readFromNewFile(sets);
-
         int setNR = (int)(Math.random()*15);
+
         System.out.println("Set nr: "+setNR);
         System.out.println("Capacity: "+Set.getCapacity());
         ArrayList<Integer> selectedItems = new ArrayList<>();
         long executionTime = System.nanoTime();
+
         knapSack(Set.getCapacity(),sets.get(setNR).getWeights(),sets.get(setNR).getValues(),Set.getN(),selectedItems);
+
         executionTime = System.nanoTime()-executionTime;
         int finalSize=0;
         int finalValue=0;
-
+        System.out.println("------------------------------");
         for(Integer i : selectedItems)
         {
             int size = sets.get(setNR).getSize(i);
@@ -30,10 +32,12 @@ public class Main {
             finalValue+=value;
             System.out.println("Item nr="+i+", size="+size+", value="+value);
         }
+        System.out.println("------------------------------");
         System.out.println("Final items size: "+finalSize);
         System.out.println("Final items value: "+finalValue);
 
         System.out.println("Execution time: "+ TimeUnit.SECONDS.convert(executionTime,TimeUnit.NANOSECONDS) +"s");
+        System.out.println("Execution time: "+ TimeUnit.MILLISECONDS.convert(executionTime,TimeUnit.NANOSECONDS) +"ms");
     }
 
     //https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
@@ -114,6 +118,7 @@ public class Main {
     {
         Scanner s = new Scanner(Paths.get("plecak_old.txt"));
         Set.setCapacity(Integer.parseInt(s.nextLine().split(" ")[1]));
+        Set.setN(10);
         s.nextLine();
         int[] sizes;
         int[] values;

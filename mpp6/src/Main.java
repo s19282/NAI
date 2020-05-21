@@ -5,56 +5,85 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Main {
-
+public class Main
+{
     public static void main(String[] args) throws IOException
     {
         List<Set> sets = new ArrayList<>();
         readFromNewFile(sets);
         int setNR = (int)(Math.random()*15);
 
-        System.out.println("Set nr: "+setNR);
-        System.out.println("Capacity: "+Set.getCapacity());
-        ArrayList<Integer> selectedItems = new ArrayList<>();
-        long executionTime = System.nanoTime();
+        long time = System.nanoTime();
+        iterationKnapSack(sets.get(setNR));
+        time = System.nanoTime()-time;
 
-        knapSack(Set.getCapacity(),sets.get(setNR).getWeights(),sets.get(setNR).getValues(),Set.getN(),selectedItems);
+//        System.out.println("Set nr: "+setNR);
+//        System.out.println("Capacity: "+Set.getCapacity());
+//        ArrayList<Integer> selectedItems = new ArrayList<>();
+//        long executionTime = System.nanoTime();
+//
+//        System.out.println(recursionKnapSack(Set.getCapacity(),sets.get(setNR).getWeights(),sets.get(setNR).getValues(),Set.getN(),selectedItems));
+//
+//        executionTime = System.nanoTime()-executionTime;
+//        int finalSize=0;
+//        int finalValue=0;
+//        System.out.println("------------------------------");
+//        for(Integer i : selectedItems)
+//        {
+//            int size = sets.get(setNR).getSize(i);
+//            int value = sets.get(setNR).getValue(i);
+//            finalSize+=size;
+//            finalValue+=value;
+//            System.out.println("Item nr="+i+", size="+size+", value="+value);
+//        }
+//        System.out.println("------------------------------");
+//        System.out.println("Final items size: "+finalSize);
+//        System.out.println("Final items value: "+finalValue);
+//
+        System.out.println("Execution time: "+ TimeUnit.SECONDS.convert(time,TimeUnit.NANOSECONDS) +"s");
+    }
 
-        executionTime = System.nanoTime()-executionTime;
-        int finalSize=0;
-        int finalValue=0;
-        System.out.println("------------------------------");
-        for(Integer i : selectedItems)
+    static void iterationKnapSack(Set set)
+    {
+        int maxWeight=0;
+        int maxValue=0;
+
+        for(int i=0; i<Math.pow(2,Set.getN()); i++)
         {
-            int size = sets.get(setNR).getSize(i);
-            int value = sets.get(setNR).getValue(i);
-            finalSize+=size;
-            finalValue+=value;
-            System.out.println("Item nr="+i+", size="+size+", value="+value);
+            int tmpWeight = 0;
+            int tmpValue = 0;
+            String singleCombination = Integer.toBinaryString(i);
+            for (int j = 0; j < singleCombination.length(); j++)
+                if (singleCombination.charAt(j) == '1') {
+                    tmpWeight += set.getSize(j);
+                    tmpValue += set.getValue(j);
+                }
+            if (tmpWeight <= Set.getCapacity() && tmpValue > maxValue)
+            {
+                maxValue = tmpValue;
+                maxWeight = tmpWeight;
+            }
         }
-        System.out.println("------------------------------");
-        System.out.println("Final items size: "+finalSize);
-        System.out.println("Final items value: "+finalValue);
+        System.out.println("Weight: "+maxWeight);
+        System.out.println("Value: "+maxValue);
 
-        System.out.println("Execution time: "+ TimeUnit.SECONDS.convert(executionTime,TimeUnit.NANOSECONDS) +"s");
-        System.out.println("Execution time: "+ TimeUnit.MILLISECONDS.convert(executionTime,TimeUnit.NANOSECONDS) +"ms");
     }
 
     //https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
     //https://stackoverflow.com/questions/20342386/printing-out-result-in-0-1-knapsack-recursive-brute-force
-    static int knapSack(int capacity, int[] weights, int[] values, int n,ArrayList<Integer> taken)
+    static int recursionKnapSack(int capacity, int[] weights, int[] values, int n,ArrayList<Integer> taken)
     {
         if (n == 0 || capacity == 0)
             return 0;
 
         if (weights[n - 1] > capacity)
-            return knapSack(capacity, weights, values, n - 1,taken);
+            return recursionKnapSack(capacity, weights, values, n - 1,taken);
         else
         {
             final int preTookSize = taken.size();
-            final int took = values[n - 1] + knapSack(capacity - weights[n - 1], weights, values, n - 1,taken);
+            final int took = values[n - 1] + recursionKnapSack(capacity - weights[n - 1], weights, values, n - 1,taken);
             final int preLeftSize = taken.size();
-            final int left = knapSack(capacity, weights, values, n - 1,taken);
+            final int left = recursionKnapSack(capacity, weights, values, n - 1,taken);
 
             if(took>left)
             {
